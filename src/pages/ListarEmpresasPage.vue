@@ -1,6 +1,6 @@
 <template>
     <q-page padding>
-      <h1>Página Contatos</h1>
+      <h1>Veja a lista com todas as empresas aqui!</h1>
     </q-page>
   </template>
   

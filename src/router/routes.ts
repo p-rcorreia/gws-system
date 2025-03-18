@@ -6,12 +6,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { 
-        path: '',
+        path: '/index',
         component: () => import('pages/IndexPage.vue') 
       },
       {
-        path: '/empresas',
-        component: () => import('pages/EmpresasPage.vue')
+        path: '/cadastrar-empresas',
+        component: () => import('pages/CadastrarEmpresasPage.vue')
+      },
+      {
+        path: '/listar-empresas',
+        component: () => import('pages/ListarEmpresasPage.vue')
       },
       {
         path: '/dominios',
