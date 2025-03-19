@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <h1 class="q-mb-md">Cadastre uma empresa aqui!</h1>
+    <h1 class="q-mb-md">Cadastro de Empresa</h1>
 
     <q-form @submit.prevent="enviarFormulario">
       
@@ -8,20 +8,20 @@
       v-model="nome"
       label="Nome"
       autofocus
-      :rules="[val => val && val.length > 0 || 'Nome é obrigatório']"/>
+      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
 
       <q-input
       v-model="cnpj"
       label="CNPJ"
       mask="##.###.###/####-##"
-      :rules="[val => val && val.length > 0 || 'Nome é obrigatório']"/>
+      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
 
       <q-input
       v-model="razaoSocial"
       label="Razão Social"
-      :rules="[val => val && val.length > 0 || 'Nome é obrigatório']"/>
+      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
 
-      <q-btn label="Cadastrar Empresa" color="primary" type="submit" />
+      <q-btn label="Cadastrar Empresa" color="primary" type="submit" style="margin-top: 10px;" />
     </q-form>
 
   </q-page>
