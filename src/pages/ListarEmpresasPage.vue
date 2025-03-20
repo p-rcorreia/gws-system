@@ -29,6 +29,7 @@
         <q-pagination
           v-model="paginaAtual"
           :max="totalPaginas"
+          :max-pages="5"
           boundary-numbers
           direction-links
           @update:model-value="carregarEmpresas"
