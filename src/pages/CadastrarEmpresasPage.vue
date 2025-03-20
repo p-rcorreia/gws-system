@@ -1,29 +1,39 @@
 <template>
   <q-page padding>
-    <h1 class="q-mb-md">Cadastro de Empresa</h1>
+    <q-banner class="bg-primary text-white q-mb-md" rounded>
+      <template v-slot:avatar>
+        <q-icon name="business" size="xl" />
+      </template>
+      <div class="text-h3 q-mb-xs">Cadastro de Empresa</div>
+      <div class="text-subtitle2">Preencha os dados da empresa para cadastrá-la no sistema</div>
+    </q-banner>
 
     <q-form @submit.prevent="enviarFormulario">
-      
       <q-input
-      v-model="nome"
-      label="Nome"
-      autofocus
-      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
+        v-model="nome"
+        label="Nome"
+        autofocus
+        :rules="[val => val && val.length > 0 || 'Campo obrigatório']"
+        class="q-mb-md"
+      />
 
       <q-input
-      v-model="cnpj"
-      label="CNPJ"
-      mask="##.###.###/####-##"
-      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
+        v-model="cnpj"
+        label="CNPJ"
+        mask="##.###.###/####-##"
+        :rules="[val => val && val.length > 0 || 'Campo obrigatório']"
+        class="q-mb-md"
+      />
 
       <q-input
-      v-model="razaoSocial"
-      label="Razão Social"
-      :rules="[val => val && val.length > 0 || 'Campo obrigatório']"/>
+        v-model="razaoSocial"
+        label="Razão Social"
+        :rules="[val => val && val.length > 0 || 'Campo obrigatório']"
+        class="q-mb-md"
+      />
 
-      <q-btn label="Cadastrar Empresa" color="primary" type="submit" style="margin-top: 10px;" />
+      <q-btn label="Cadastrar Empresa" color="primary" type="submit" class="full-width" />
     </q-form>
-
   </q-page>
 </template>
 
@@ -32,7 +42,7 @@
   import api from '../axiosEmpresas';
 
   const nome = ref('');
-  const cnpj = ref( );
+  const cnpj = ref('');
   const razaoSocial = ref('');
 
   function enviarFormulario() {
@@ -55,22 +65,37 @@
 
 <style scoped>
   .q-page {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
   }
 
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
+  /* Estilização do banner */
+  .q-banner {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    border-radius: 12px;
   }
 
+  .q-banner .text-h3 {
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .q-banner .text-subtitle2 {
+    margin-top: 4px;
+    opacity: 0.9;
+  }
+
+  /* Estilo para inputs */
   .q-input {
     width: 100%;
   }
 
+  /* Estilização do botão */
   .q-btn {
     width: 100%;
+    margin-top: 10px;
   }
 </style>
