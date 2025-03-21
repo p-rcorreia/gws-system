@@ -17,6 +17,15 @@
             <div><strong>CNPJ:</strong> {{ empresa.cnpj }}</div>
             <div><strong>Razão Social:</strong> {{ empresa.razaoSocial }}</div>
           </q-item-section>
+          <q-item-section side>
+            <q-btn 
+              color="negative"
+              icon="delete"
+              size="md"
+              no-caps
+              @click="excluirEmpresa(empresa)"
+            />
+          </q-item-section>
         </q-item>
       </q-card-section>
       <q-separator />
@@ -59,7 +68,7 @@ import { ref, onMounted } from 'vue';
 import api from '../axiosEmpresas';
 
 // 'empresas' vai armazenar os dados das empresas
-const empresas = ref<{ nome: string; cnpj: string; razaoSocial: string }[]>([]);
+const empresas = ref<{ id: number; nome: string; cnpj: string; razaoSocial: string }[]>([]);
 
 const paginaAtual = ref(1); // Página inicial
 const itensPorPagina = ref(10);
@@ -80,6 +89,19 @@ function carregarEmpresas() {
   .catch(error => {
     console.error('Erro ao carregar empresas:', error);  // Caso haja erro na requisição
   });
+}
+
+function excluirEmpresa(empresa: { id: number; nome: string }) {
+  // Faz a requisição para excluir a empresa diretamente
+  api.delete(`/${empresa.id}`)
+    .then(() => {
+      // Filtra a empresa excluída da lista
+      empresas.value = empresas.value.filter(e => e.id !== empresa.id);
+    })
+    .catch(error => {
+      // Caso ocorra algum erro, exibe a notificação de erro
+      console.error('Erro ao excluir empresa:', error);
+    });
 }
 
 // Chamamos a função assim que o componente é montado
@@ -117,22 +139,26 @@ onMounted(() => carregarEmpresas());
 .my-card {
   max-width: 1000px;
   margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .q-mb-md {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 /* Ajustes nos textos */
 .text-h6 {
   color: var(--q-primary);
-  font-weight: 600;
+  font-size: 1rem; /* Era maior */
 }
 
 .text-subtitle2 {
   color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
 }
 
 /* Ícone do banner */
@@ -140,14 +166,11 @@ onMounted(() => carregarEmpresas());
   margin-right: 12px;
 }
 
-/* Melhor espaçamento dentro do card */
-.q-card-section {
-  padding: 16px;
-}
-
 /* Estilo para o separador dos cards */
 .q-separator {
-  background: var(--q-primary);
+  width: 100%;
+  height: 1px;
+  background: var(--q-primary);  
   opacity: 0.5;
 }
 
@@ -177,5 +200,10 @@ onMounted(() => carregarEmpresas());
 .itens-por-pagina {
   min-width: 140px;  /* Largura mínima para acomodar o título (ex: "Itens por página") */
   max-width: 150px;  /* Limita a largura máxima para manter o select compacto */
+}
+
+/* Ajuste no item para ocupar menos espaço */
+.q-item {
+  padding: 0px 0px; /* Diminui o espaçamento interno */
 }
 </style>
